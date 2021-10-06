@@ -1,0 +1,118 @@
+---
+title: "Computational notebook for PhD Seminar"
+output: html_notebook
+---
+```{r set-up}
+knitr::opts_chunk$set(echo = FALSE)
+pacman::p_load("xaringanExtra","knitr","kableExtra","fontawesome","tidyverse","xaringanthemer")
+```
+
+
+# Algorithm and inference
+.panelset[
+.panel[.panel-name[Statistical method of averaging]
+- Consider the simplistic but most popular measure of averaging 
+- Suppose we observe a set of the price change path phenomenon of a stock over t periods $x_1, x_2,...,x_t$.
+
+```{r random-walk-simulator, fig.height=4, fig.width=8}
+set.seed(123)
+S1=100; t=100; Price=vector(length = t)
+noise=runif(t,min = -5,max = 5)
+for (tt in 1:t) {
+  if (tt==1) {
+    Price[tt]=S1
+  }
+  else{
+  Price[tt] = Price[tt-1] + noise[tt]
+  }
+}
+sum(Price)/length(Price)
+```
+
+- The averaging function highlighted above is an algorithm and is represented by the red line in the plot opposite
+
+]
+.panel[.panel-name[Fake Data and the average as an estimate]
+.pull-left[
+```{r echo=FALSE, fig.height=5, fig.width=7}
+price_mean=sum(Price)/length(Price)
+Price %>% plot(type="l") %>% abline(h=price_mean, col="red")
+```
+]
+.pull-right[
+.blockquote[
+- The mean value summarises the path price into a single number
+- .content-box-green[But how accurate is this algorithm?]
+- The textbook answer is given in terms of the *standard error*
+]
+]
+]
+.panel[.panel-name[Standard error]
+```{r, warning=FALSE}
+standard_error<- function(x){
+  dx=(x-mean(x))^2
+  denom=length(x)*(length(x)-1)
+  sumsq=sum(dx)/denom
+  sqrt(sumsq)
+}
+standard_error(Price)
+```
+- Here averaging is the .content-box-red[algorithm], while the standard error provides the .content-box-blue[inference] of the algorithm's accuracy.
+]
+.panel[.panel-name[Explanation]
+.blockquote[
+- It is a surprising, and crucial, aspect of statistical theory that the same data that supplies an estimate can also assess its accuracy. 
+- Strictly speaking *Inference* concerns more than accuracy: recall that algorithms say what the statistician does while inference says why she does it.
+]
+]
+]
+---
+class:middle
+# Algorithms and Inference
+- Of course, the `standard_error()` function defined previously is itself an algorithm, which could be (and is) subject to further inferential analysis concerning its accuracy 
+
+- .content-box-green[The point is that the algorithm comes first and the inference follows at a second level of statistical consideration.]
+
+- .content-box-yellow[In practice this means that algorithmic invention is a more free-wheeling and adventurous enterprise]
+
+- .content-box-grey[In contrast inference playing catch-up as it strives to assess the accuracy, good or bad, of some hot new algorithmic methodology.]
+
+---
+class: middle
+# Algorithms and regression
+.panelset[
+.panel[.panel-name[Least squares algorithm for linear regression]
+- The least squares estimator is a popular algorithm for estimating a linear regression
+- The algorithm fits the data by *least squares*, by minimising the sum of squared deviations over all choices of the model parameters.
+- Consider the following fake relationship between the price and some market factor
+```{r fake data}
+factor<-Price + runif(t,1,8)^2 #<<
+tibble(Price,factor)->df 
+```
+
+]
+.panel[.panel-name[Least squares algorithm]
+.pull-left-1[
+```{r echo=FALSE}
+df %>% ggplot(aes(y=Price,x=factor)) + geom_point() +
+  geom_smooth(method = "lm") #<< adds least squares line with standard errors
+```
+]
+.pull-right-2[
+- This code manufactures a positive relationship to the factor plus some noise and then draws the least squares regression line.
+- The accuracy of this estimate is given by $\pm$ 2 standard errors
+- The appropriate inference of this banded grey area is that this has a 95% chance in including the true expected value of `Price` in an `Up` market.
+- This 95% coverage depends on the validity of the linear regression model, which could as easy have been a quadratic relationship
+]
+]
+.panel[.panel-name[Lowess algorithm for localised regression]
+.pull-left-2[
+* Lowess is a modern computer based algorithm which works by moving its attention along the x-axis, fitting local polynomial curves of differing degrees to nearby `(x,y)` coordinates. 
+- The fitted estimate above has a similar linear regression as the least squares algorithm in the middle of the data but for higher values of the factor has a much steeper curve.
+]
+.pull-right-1[
+```{r, echo=FALSE}
+df %>% ggplot(aes(y=Price,x=factor)) + geom_point() +
+  geom_smooth(method = "loess") # 
+```
+]

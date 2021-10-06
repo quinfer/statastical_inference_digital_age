@@ -1,0 +1,983 @@
+---
+title: "Statistical inference in the digital age"
+subtitle: "PhD Seminar Series"
+author: "Barry Quinn PhD CStat"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["xaringan-themer.css","css/mycssblend.css"]
+    includes:
+      after_body: insert-logo.html
+    nature:
+     countdown: 120000
+     highlightStyle: github
+     highlightLines: true
+     countIncrementalSlides: true
+     ratio: "16:9"
+     seal: True 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+pacman::p_load("xaringanExtra","knitr","kableExtra","fontawesome","tidyverse","xaringanthemer")
+use_webcam()
+use_panelset()
+style_mono_accent(
+  base_color = "#1c5253",
+  header_font_google = google_font("Century Gothic"),
+  text_font_google   = google_font("Century Gothic", "300", "300i"),
+  code_font_google   = google_font("Fira Mono"),
+  title_slide_background_image = 'img/title-slide-img.png',
+  title_slide_background_color = "gray")
+```
+
+class:middle
+<img class="circle" src="img/bq_paint.jpg" width="250px"/>
+An airbrushed Barry Quinn!
+
+### Find me at...
+
+[<img src='img/twitter.png' width="25px"\> @quinference](http://twitter.com/quininference)  
+
+[<img src='img/github.png' width="25px"\> @barryquinn1](http://github.com/barryquinn1)  
+
+[<img src='img/link.png' width="25px"\>quinference.com](https://quinference.com)  
+
+[<img src='img/paper-plane.png' width="25px"\> b.quinn@qub.ac.uk](mailto:b.quinn@qub.ac.uk)
+
+---
+class:inverse, middle
+# Learning Outcomes
+.large[
+- Statistical inference in the digital age
+- Algorithms and machine learning
+- Algorithms and inference
+- Frequentist inference in maths
+- Bayesian inference as counting possibilities
+- Compare and contrast
+- Concluding and questions
+]
+
+---
+class:inverse
+# What is statistical inference?
+
+.large[
+- **It is not causal inference**
+
+- Statistical inference is a broad discipline at the intersection of mathematics, empirical science and philosophy. 
+
+- Computation has been a traditional bottleneck for motivating small sample solutions with solid asymptotic principles.  
+
+- Traditional econometrics retains much of this framework arguable because of the sparsity of observed data realisation of theory. 
+
+- After the 1950s, as power and accessibility of computing have increased, and statistical theory has developed, statistical inference using machine learning model has become commonplace for applied statisticians.
+
+- Adoption in research for business and economics academia is slower.
+]
+---
+class:middle
+ ## What is statistical inference?
+ 
+- Statistical inference is the bedrock of econometrics
+- The main focus of ML is traditionally prediction. 
+- In traditional econometrics, models learn statistical information and uncertainty about the parameters of the *unobservable* data generating process. 
+
+- Their power emanates from an *a priori* probability model under strict assumptions with a proven track record. 
+
+- Armed with this theoretical confidence and using the dominant frequentist approach, econometricians can objectively infer uncertainty and variation characteristics about **how well the data sampled maps to the theoretical data generating process**. 
+
+---
+class: middle
+# The most important property of an inference model in academia??
+
+- Econometricians coax validate statistical inference using amenable distributional assumptions and model specifications. 
+
+- The three most important properties in most traditional econometrics models are linearity, additivity and monotonicity. 
+
+- The most important assumption, which is routine overlooking in many textbooks, is **validity**. Andrew Gelman summarises this property as: 
+
+> The data you are analysing should map to the research question you are trying to answer.  This assumption sounds obvious but is often overlooked or ignored because it can be inconvenient.  Optimally, this means that the outcome measure should accurately reflect the phenomenon of interest, the model should include all relevant predictors, and the model should generalise to the cases to which it will be applied. - [@Gelman2020] 
+
+---
+class: middle
+## Publish that significance!!
+
+- These amenable formulations provide a convenient root to statistical significance using p-values [@Lommers2021].
+
+- The inherent philosophy of traditional econometric models is incompatible with out-of-sample inference and prediction [@De_Prado2019]; 
+
+- These are two task which are at the core of the modern finance industry.
+
+---
+class: middle
+## Machine learning models
+
+- Machine learning models focus on outcome prediction, where the data generated process is generally undefined, with the goal of algorithmically optimising models to fit the underlying data generating process as well as possible [@Lommers2021]. 
+
+- [@Efron2016] summaries this well in their definition of computer age statistical inference:
+
+>Very broadly speaking, algorithms are what statisticians do, while inference says why they do them. However, the efflorescence of ambitious algorithms has forced an evolution (though not a revolution) in inference, the theories by which statisticians choose among competing methods.
+
+---
+class: middle
+## Challenge or opportunity to good science ?
+
+- Thus the challenge for modern computationally literate researchers is to understand the inferential benefits of machine learning through the lens of econometrics.
+
+- For inference to be convincing, more work must be done on statistical consistency of machine learning models. 
+
+- For instance, in the area of explainable AI (XAI), great strides have been made on producing statistical consistent and cognitive convincing explanations of the importance of predictors in the ML model [@Barredo_Arrieta2020].  
+
+- Second-generation p-values can be included in a penalised regression model to yield tangible advantages for balancing support recovery, parameter estimation, and prediction tasks [@Blume2019; @Zuo2021]. 
+
+---
+class:middle
+# What is Machine Learning?
+
+### ML covers various classes of algorithms for pattern recognition and decision-making.
+
+|Paradigm|Goal|Examples|
+|:--:|:--:|:--:|
+|Supervised Learning|Using labelled data the goal is to learn the relationship between $X$ and $Y$|Random Forests, Extreme Boosted Trees, Recurrent Neural Networks|
+|Unsupervised Learning|Given a set of unlabelled data the goal is to retrieve exploratory information about, groupings or hidden patterns|Hierarchical clustering, $k$-mean clustering,hidden Markov models, Gaussian mixtures|
+|Reinforcement learning| An algorithmic approach to Bellman optimality of a Markov Decision Process| A form of dynamic programming used for decisions leading to optimal trade execution, portfolio allocation, and liquidation over a given horizon|
+
+---
+class:middle
+# Types of supervised ML models
+
+### Discriminative
+- Learnings the decision boundary between the classes
+- Implicitly learns the output conditional on the input
+
+.context-box-blue[Examples: Decisions tree, Neural network]
+
+### Generative
+- Explicitly learns the joint distribution of the input and the output
+- Can use Bayes's rule to also extract the conditional distribution
+
+.context-box-blue[Example: Restricted Boltzmann machine (RBM), Bayesian Neural Networks]
+
+---
+class: middle
+# Artificial intellience
+ - We are now in the era of narrow AI.
+ - AI experts' predictions vary as to when we can see *artificial general intelligence* (AGI)
+--
+
+## Machine Learning(ML)
+ - This is generally thought of as a branch of AI
+ - Traditional machine learning algorithms are designed for cross-sectional data sets.
+ - Many financial problems require explicit modeling of complex time series properties.
+
+--
+ 
+### Deep learning
+ - Is a branch of ML which has been the media darling of AI industry expansion
+ - At its core it is using neural networks; algorithms inspired by the structure of the human brain.
+ - Statisticians are less impressed, and prefer to categorise these models as semi-parametric to non-parametric.
+
+---
+class:inverse
+# A deep learning explainer
+<iframe src="https://player.vimeo.com/video/504543351" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+
+
+---
+class: middle
+# Algorithms and Inference
+- .content-box-green[Statistics is the science of learning from experience]
+- Usually this experience arrives a little at a time
+  - Success and failure of investment strategies
+  - Uncertain measurement of business and economic phenomenon
+- No one theory could possibly cover such an nebulous target as .content-box-green[learning from experience]
+- We are thus left with a paradigm choice to move from computation to inference
+
+.heat[Bayesianism] and .acid[Frequentism]
+
+---
+class: middle
+# Algorithm and inference
+.panelset[
+.panel[.panel-name[Statistical method of averaging]
+- Consider the simplistic but most popular measure of averaging 
+- Suppose we observe a set of the price change path phenomenon of a stock over t periods $x_1, x_2,...,x_t$.
+
+```{r random-walk-simulator, fig.height=4, fig.width=8}
+set.seed(123)
+S1=100; t=100; Price=vector(length = t)
+noise=runif(t,min = -5,max = 5)
+for (tt in 1:t) {
+  if (tt==1) {
+    Price[tt]=S1
+  }
+  else{
+  Price[tt] = Price[tt-1] + noise[tt]
+  }
+}
+sum(Price)/length(Price)
+```
+
+- The averaging function highlighted above is an algorithm and is represented by the red line in the plot opposite
+
+]
+.panel[.panel-name[Fake Data and the average as an estimate]
+.pull-left[
+```{r echo=FALSE, fig.height=5, fig.width=7}
+price_mean=sum(Price)/length(Price)
+Price %>% plot(type="l") %>% abline(h=price_mean, col="red")
+```
+]
+.pull-right[
+.blockquote[
+- The mean value summarises the path price into a single number
+- .content-box-green[But how accurate is this algorithm?]
+- The textbook answer is given in terms of the *standard error*
+]
+]
+]
+.panel[.panel-name[Standard error]
+```{r, warning=FALSE}
+standard_error<- function(x){
+  dx=(x-mean(x))^2
+  denom=length(x)*(length(x)-1)
+  sumsq=sum(dx)/denom
+  sqrt(sumsq)
+}
+standard_error(Price)
+```
+- Here averaging is the .content-box-red[algorithm], while the standard error provides the .content-box-blue[inference] of the algorithm's accuracy.
+]
+.panel[.panel-name[Explanation]
+.blockquote[
+- It is a surprising, and crucial, aspect of statistical theory that the same data that supplies an estimate can also assess its accuracy. 
+- Strictly speaking *Inference* concerns more than accuracy: recall that algorithms say what the statistician does while inference says why she does it.
+]
+]
+]
+---
+class:middle
+# Algorithms and Inference
+- Of course, the `standard_error()` function defined previously is itself an algorithm, which could be (and is) subject to further inferential analysis concerning its accuracy 
+
+- .content-box-green[The point is that the algorithm comes first and the inference follows at a second level of statistical consideration.]
+
+- .content-box-yellow[In practice this means that algorithmic invention is a more free-wheeling and adventurous enterprise]
+
+- .content-box-grey[In contrast inference playing catch-up as it strives to assess the accuracy, good or bad, of some hot new algorithmic methodology.]
+
+---
+class: middle
+# Algorithms and regression
+.panelset[
+.panel[.panel-name[Least squares algorithm for linear regression]
+- The least squares estimator is a popular algorithm for estimating a linear regression
+- The algorithm fits the data by *least squares*, by minimising the sum of squared deviations over all choices of the model parameters.
+- Consider the following fake relationship between the price and some market factor
+```{r fake data}
+factor<-Price + runif(t,1,8)^2 #<<
+tibble(Price,factor)->df 
+```
+
+]
+.panel[.panel-name[Least squares algorithm]
+.pull-left-1[
+```{r echo=FALSE}
+df %>% ggplot(aes(y=Price,x=factor)) + geom_point() +
+  geom_smooth(method = "lm") #<< adds least squares line with standard errors
+```
+]
+.pull-right-2[
+- This code manufactures a positive relationship to the factor plus some noise and then draws the least squares regression line.
+- The accuracy of this estimate is given by $\pm$ 2 standard errors
+- The appropriate inference of this banded grey area is that this has a 95% chance in including the true expected value of `Price` in an `Up` market.
+- This 95% coverage depends on the validity of the linear regression model, which could as easy have been a quadratic relationship
+]
+]
+.panel[.panel-name[Lowess algorithm for localised regression]
+.pull-left-2[
+* Lowess is a modern computer based algorithm which works by moving its attention along the x-axis, fitting local polynomial curves of differing degrees to nearby `(x,y)` coordinates. 
+- The fitted estimate above has a similar linear regression as the least squares algorithm in the middle of the data but for higher values of the factor has a much steeper curve.
+]
+.pull-right-1[
+```{r, echo=FALSE}
+df %>% ggplot(aes(y=Price,x=factor)) + geom_point() +
+  geom_smooth(method = "loess") # 
+```
+]
+]
+]
+---
+class: middle
+# Bootstrap inferential engine
+
+.pull-left[
+- Unlike the least squares algo, there is no formula to infer the accuracy of the lowess curve.
+- Instead, a computer-intensive inference engine, the `bootstrap`, was used to calculate the error bars. 
+- The bootstrap data set is produced by resampling the 100 pairs of $(x_i,y_i)$ from the original data with replacement.
+- This result is `bootstrapped` replications of the original calculation
+- Opposite shows the first 20 (of 100) bootstrap lowess replications bouncing around the original curve
+- The variability of replications at any value of `factor`
+]
+.pull-right[
+<iframe width="600" height="500"
+   src="img/lowess_ani.gif" </iframe>
+]
+
+---
+class:middle
+# Hypothesis testing
+```{r, include=FALSE}
+library(ati)
+ati::daily_factors->uk_factors
+uk_factors %>% mutate(Bull=if_else(rm>0,"Up","Not Up")) -> uk_factors
+meanUP<-mean(uk_factors$hml[uk_factors$Bull=='Up'])
+mean_notUP<-mean(uk_factors$hml[uk_factors$Bull=='Not Up'])
+```
+
+.pull-left[
+- There has also been a march of methodology and inference for hypothesis testing rather than estimation
+- Consider questions about where value investing is better in a bull or a bear market?
+- The plots shows the histogram of these two groups in the uk data.Up markets to seem to have a more positive return then down markets.
+- The mean values for up and not up are in fact `r sprintf("%.5f",meanUP)` and `r sprintf("%.5f",mean_notUP)` respectively 
+- Is the perceived difference genuine or as some people would say **a statistical fluke**
+]
+.pull-right[
+```{r, echo=FALSE, fig.width=8}
+uk_factors %>% ggplot(aes(x=hml, fill=Bull)) +
+  geom_histogram(bins=15) +
+  facet_wrap(~Bull)
+```
+]
+---
+class:middle
+# Hypothesis Testing
+- The classic answer to this question is via a two-sample t-test
+$$\frac{\bar{Value_{UP}}-\bar{Value_{Not Up}}}{\hat{sd}}$$
+- where $\hat{sd}$ is estimate of the numerators standard deviation
+
+- .content-box-blue[Dividing by sd allows us (under Gaussian assumptions) to compare the observed value of t with a standard **null** distribution, in this case a Student’s t distribution with `r nrow(uk_factors)-1` degrees of freedom.]
+
+---
+class:middle
+# Two sample t-test inference
+.pull-left[
+```{r}
+t.test(uk_factors$hml[uk_factors$Bull=='Up'],uk_factors$hml[uk_factors$Bull!='Up'])
+```
+]
+.pull-right[
+- We obtain t= 5.07 which would classically be considered very strong evidence that the apparent difference is genuine; in standard terminology, “with two-sided significance level 0.0000003.”
+- A small significance level (or “p-value”) is a statement of statistical surprise: something very unusual has happened if in fact there is no difference in returns of the value factor in up and down markets
+- We are less surprised by t=5.07 if this comparison of mean returns is just one candidate out of thousands that might have produced “interesting” results.
+- For example if I take a different set sample period and run the test again, or I split the sample into 5 sub-samples and run the test again.
+]
+---
+class: middle
+# Traditional hypothesis testing and false discovery theory
+.fatinline[
+- A primary goal of empirical research is to identify the variables involved in a phenomenon
+- The identification of these variables is a prerequisite to the formulation of a theory
+- In classical statistics (e.g., Econometric), the significance of variables is established through p values
+-  p values suffer from multiple flaws, which have led to the acknowledgment that [most discoveries in finance are false](http://dx.doi.org/10.1111/jofi.12530)
+]
+
+.blockquote[
+#### FML inference 
+- False discovery rate theory is an impressive advance in statistical inference, incorporating Bayesian ,frequentist, and empirical Bayesian elements.
+- It was a *necessary* advance in a scientific world where computer-based technology routinely presents thousands of comparisons to be evaluated at once.
+]
+
+---
+class: middle
+# The algorithm/inference cycle
+
+
+.pull-left[
+.content-box-red[
+### Phase one
+* Important new algorithms often arise outside the world of professional statisticians: neural nets, support vector machines, and boosting are three famous examples. 
+* None of this is surprising.
+* New sources of data, satellite imagery for example, video content of CEOs, inspire novel methodology from the observing scientists.
+* The early literature tends toward the enthusiastic, with claims of enormous applicability and power.
+]
+]
+.pull-right[
+.content-box-green[
+### Phase two
+- In the second phase, statisticians try to locate the new metholodogy within the framework of statistical theory. 
+- In other words, they carry out the statistical inference part of the cycle, placing the new methodology within the known Bayesian and frequentist limits of performance.
+]
+]
+.blockquote[This is a healthy chain of events, good both for the hybrid vigor of the statistics profession and for the further progress of algorithmic technology.]
+
+---
+class: middle
+# Simulated example of false discovery problem
+
+```{r}
+set.seed(1235)
+res<-tibble(testno=1:20, pvalue=1)
+for (i in 1:20) {
+  Up=rnorm(1000)
+  NoUp=rnorm(1000)
+  res[i,2]<-t.test(Up,NoUp)['p.value']
+}
+```
+- This code fakes the return up versus down question earlier, where the *ground truth* is that there is no relationship.
+- This implies that our significant results, when using a t-test, must be fake
+- We repeat the test 20 times using a simple for loop.
+
+---
+class: middle
+# Simulated example of false discovery problem
+.pull-left-2[
+```{r eval=require('DT'), tidy=FALSE}
+DT::datatable(
+  res,
+  fillContainer = FALSE, options = list(pageLength = 5,order = list(2, 'asc'))
+)
+```
+]
+.pull-right-1[
+- Arranging the results in ascending order of p-values.
+- With enough hypothesis test we will always discovery a fake results.
+- In financial machine learning, where we have to work with high-dimensional data with many features, 1000's of comparisons are common. 
+]
+
+---
+class: middle
+# Frequentist inference
+```{r echo=FALSE}
+m=mean(uk_factors$hml)
+se=standard_error(uk_factors$hml)
+```
+- Before the computer age there was the calculator age, and before “big data” there were small data sets, often a few hundred numbers or fewer, laboriously collected by individual scientists working under restrictive experimental constraints. 
+- **Precious data calls for maximally efficient statistical analysis.** 
+
+--
+
+- A remarkably effective theory, feasible for execution on mechanical desk calculators, was developed beginning in 1900 by Pearson, Fisher, Neyman, Hotelling, and others, and grew to dominate twentieth-century statistical practice. 
+- The theory, now referred to as **classical**, relied almost entirely on **frequentist** inferential ideas. 
+---
+# Frequentist inference example
+
+```{r}
+mean(df$Price)
+standard_error(df$Price)
+```
+
+
+- Recall the fake price data, which has a mean and standard error of `r round(mean(Price),2)` $\pm$ `r round(standard_error(Price),2)`
+- The $\pm$ `r round(standard_error(Price),2)` denotes a frequentist inference of accuracy of the mean estimate.
+- It suggests we should **not** take the .23 very seriously, even the 2 being open to doubt.
+- But where does this inference come from??
+---
+class: middle
+# Frequentist inference
+
+- Statistical inference usually begins with the assumption that some probability model has produced the observed data x, in our case the vector of fake prices measurements $x=(x_1,x_2,..,x_n)$
+. Let $X=(X_1,X_2,...,X_n)$ indicate n independent draws from a probability distribution F, written:
+$$F \to X$$
+
+--
+
+- F being the underlying distribution of possible prices (the model)
+- A realization X= x of $F \to X$ has been observed, and the statistician wishes to infer some property of the unknown distribution F .
+
+--
+
+- Suppose the desired property is the expectation of a single random draw X from F , denoted
+$$\theta=E_f\left\{ X \right\}$$
+- The obvious estimate of $\hat{\theta}=t(x)$ is the sample average.
+- If n was very large $10^{10}$ we would expect $\hat{\theta}$ to nearly equal $\theta$
+
+.blockquote[Otherwise there is room for error and **the inferential questions is how much error?**]
+
+---
+class:middle
+# Frequentist inference
+- The estimate $\hat{\theta}$ is calculated using some algorithm (simple averaging in this instance)
+- Importantly, $\hat{\theta}$ is a realisation of $\bf{\Theta}=t(X)$ the output of t(.) applied to some theoretical sample $X$ from $F$
+- It follows that frequentist inference can be defined as
+.blockquote[
+The accuracy of an observed estimate $\hat{\theta}=t(x)$ is the probabilistic accuracy of $\bf{\Theta}=t(X)$ as an estimator of $\theta$
+]
+- This contains the powerful idea that $\hat{\theta}$ is just a number but $\hat{\Theta}$ takes a range of values whose spread can define measures of accuracy.
+
+---
+class: middle
+# Bias and variance
+- Bias and variance are familiar examples of frequentist inference.
+- Defining $\mu$ to be the expectation of $\hat{\Theta}=t(X)$ under the model $F \to X$:
+$$\mu=E_F\left\{\hat{\Theta}\right\}$$
+- The bias attributed to estimate $\hat{\theta}$ of parameter $\theta$ is
+$$bias=\mu - \theta$$
+- the variance attributed to estimate $\hat{\theta}$ of parameter $\theta$ is
+
+$$var=E_f\left\{(\hat{\Theta}-\mu)^2\right\}$$
+
+---
+class: middle 
+## Frequentist principle
+.content-box-red[
+- Frequentism is often defined with respect to *an infinite sequence of future trials.*
+
+- We imagine hypothetical datasets $X^{(1)};X^{(2)};X^{(3)}...$ generated by the same mechanism as x providing correpsonding values $\hat{\Theta}^{(1)};\hat{\Theta}^{(2)};\hat{\Theta}^{(3)}...$
+
+- **The frequentist principle is then to attribute for $\hat{\theta}$ the accuracy properties of the ensemble of $\hat{\Theta}$ values**
+
+- In essence, frequentists ask themselves, *What would I see if I reran the same situation again (and again and again)....?*
+]
+---
+class: middle
+# Frequentism in practice
+- There is an obvious defect in this principle.  It requires the calculation of the properties of the estimators $\bf{\Theta}=t(X)$ obtained from the true distribution F, even though F is unknown.
+- In practice frequentism uses a collection of ingenious devices to circumvent the defect, including
+1. .heatinline[The plug-in principle] for example the sample standard error formula used above.
+2. .saltinline[Taylor series approximations] Statistics more complicated than a simple average can often be related back to the plugin formula by local linear approximation sometimes know as the *delta method*.
+3. .fatinline[Parametric families and maximum likelihood theory]
+4. .acidinline[Simulation and the bootstrap] modern computation has opened up the possibility of numerically implementing the *infinite sequence of future trails* except for the infinite part.
+5. .acidinline[Pivotal statistics] these are statistics whose distribution does not depend upoon the underlying probability distribution $F$.  The t-statistic of difference in sample means is a popular example.
+
+---
+class: middle
+# Frequentist optimality
+- The popularity of frequentist methods reflects their relatively modest mathematical modeling assumptions: only a probability model F (more exactly a family of probabilities) and an algorithm of choice. 
+- This flexibility is also a defect in that the principle of frequentist correctness does not help with the choice of algorithm.
+- That is frequentist need to find the *best*(optimal) choice of $t(x)$ given model $F$.
+- In the early 1900's two theory emerged. 
+1. Fisher's theory of maximum likelihood: in certain parametric probability models the MLE is the optimum estimate in terms of the minimum(asymptotic) standard error.
+2. Neyman-Pearson lemma provides an optimum hypothesis-testing algorithm.
+
+---
+class: middle,center
+background-image: url(Users/barry/Home/Dropbox/FinancialMachineLearning/FML/slides/img/title-slide-img.png)
+background-size: cover
+# Learning through growth headspace
+
+.fat.center[Focus excercise](https://my.headspace.com/play/1257)
+
+---
+class: middle
+# Bayesian inference 
+
+- `r fa('brain')`:The human mind is an inference machine: “It’s getting windy, the sky is darkening, I’d better bring my umbrella with me.”
+- Unfortunately, it’s not a very dependable machine, especially when weighing complicated choices against past experience. 
+- Bayes’ theorem is a surprisingly simple mathematical guide to accurate inference. 
+- The theorem (or “rule”), now 250 years old, marked the beginning of statistical inference as a serious scientific subject. 
+- It has waxed and waned in influence over the centuries, now waxing again in the service of computer-age algorithms and inference.
+
+---
+class: middle
+# Bayesian inference 
+
+- Bayesian inference, if not directly opposed to frequentism, is at least orthogonal. 
+- It reveals some worrisome flaws in the frequentist point of view, while at the same time exposing itself to the criticism of dangerous overuse. 
+- The struggle to combine the virtues of the two philosophies has become more acute in an era of massively complicated data sets. 
+- Here we will review some basic Bayesian ideas and the ways they impinge on frequentism.
+
+.content-box-blue[A Bayesian statistical model can be thought of as a model for learning from data.  Machine learning lays comfortably within this definition.]
+
+---
+class: middle
+# The garden of forking data
+- Modestly, Bayesian inference is really just counting and comparison of possibilities. 
+- Bayesian inference uses a concept similar to Jorge Luis Borges short story [The Garden of Forking Paths](https://en.wikipedia.org/wiki/The_Garden_of_Forking_Paths)
+- In this book Borges explores all paths, with each decision branching outward into an expanding garden of forking paths.
+- This is the same device that Bayesian inference offers. 
+
+---
+class: middle
+# The garden of forking data
+- In order to make good inference about what actually happened, it helps to consider everything that could have happened.
+- A Bayesian analysis is a .heatline[garden of forking data], in which alternative sequences of events are cultivated. 
+
+- As we learn about what did happen, some of these alternative sequences are pruned.
+
+
+- In the end, what remains is only what is logically consistent with our knowledge.
+- This approach provides a quantitative ranking of hypotheses, a ranking that is maximally conservative, given the assumptions and data that go into it. 
+
+- The approach cannot guarantee a correct answer, on large world terms. 
+- But it can guarantee the best possible answer, on small world terms, that could be derived from the information fed into it
+
+---
+class: middle
+# Counting possibilities
+.pull-left[
+- Suppose there’s a bag, and it contains four marbles. 
+- These marbles come in two colours: blue and white. We know there are four marbles in the bag, but we don’t know how many are of each colour. 
+We do know that there are five possibilities:
+```{r possibilities, echo=FALSE, fig.width=3,fig.height=3}
+d <-
+  tibble(p_1 = 0,
+         p_2 = rep(1:0, times = c(1, 3)),
+         p_3 = rep(1:0, times = c(2, 2)),
+         p_4 = rep(1:0, times = c(3, 1)),
+         p_5 = 1)
+d %>% 
+  gather() %>% 
+  mutate(x = rep(1:4, times = 5),
+         possibility = rep(1:5, each = 4)) %>% 
+  ggplot(aes(x = x, y = possibility, 
+             fill = value %>% as.character())) +
+  geom_point(shape = 21, size = 5) +
+  scale_fill_manual(values = c("white", "navy")) +
+  scale_x_continuous(NULL, breaks = NULL) +
+  coord_cartesian(xlim = c(.75, 4.25),
+                  ylim = c(.75, 5.25)) +
+  theme(legend.position = "none")
+```
+]
+.pull-left[
+- These are the only possibilities consistent with what we know about the contents of the bag. 
+- Call these five possibilities the conjectures.
+- Our goal is to figure out which of these conjectures is most plausible, given some evidence about the contents of the bag. 
+- We do have some evidence: A sequence of three marbles is pulled from the bag, one at a time, replacing the marble each time and shaking the bag before drawing another marble. 
+- The sequence that emerges is: blue,white,blue in that order. 
+- These are the data.
+]
+
+---
+class: middle
+# Planting the garden
+.pull-left[
+- So now let’s plant the garden and see how to use the data to infer what’s in the bag.
+- Let’s begin by considering just the single conjecture, that the bag contains one
+blue and three white marbles.
+- After three draws there is 64 possible paths $(4^3)$ but as we consider each draw from the bag, some of the paths are logically eliminated.
+]
+.pull-right[
+
+```{r forking paths, echo=FALSE}
+d <-
+  tibble(position = c((1:4^1) / 4^0, 
+                      (1:4^2) / 4^1, 
+                      (1:4^3) / 4^2),
+         draw     = rep(1:3, times = c(4^1, 4^2, 4^3)),
+         fill     = rep(c("b", "w"), times = c(1, 3)) %>% 
+           rep(., times = c(4^0 + 4^1 + 4^2))) %>% 
+  mutate(denominator = ifelse(draw == 1, .5,
+                              ifelse(draw == 2, .5 / 4,
+                                     .5 / 4^2))) %>% 
+  mutate(position    = position - denominator)
+
+lines_1 <-
+  tibble(x    = rep((1:4), each = 4),
+         xend = ((1:4^2) / 4),
+         y    = 1,
+         yend = 2)  %>% 
+  mutate(x    = x - .5,
+         xend = xend - .5 / 4^1)
+
+lines_2 <-
+  tibble(x    = rep(((1:4^2) / 4), each = 4),
+         xend = (1:4^3) / (4^2),
+         y    = 2,
+         yend = 3) %>% 
+  mutate(x    = x - .5 / 4^1,
+         xend = xend - .5 / 4^2)
+
+# d %>% 
+#   ggplot(aes(x = position, y = draw)) +
+#   geom_segment(data  = lines_1,
+#                aes(x = x, xend = xend,
+#                    y = y, yend = yend),
+#                size  = 1/3) +
+#   geom_segment(data  = lines_2,
+#                aes(x = x, xend = xend,
+#                    y = y, yend = yend),
+#                size  = 1/3) +
+#   geom_point(aes(fill = fill),
+#              shape = 21, size = 3) +
+#   scale_y_continuous(breaks = 1:3) +
+#   scale_fill_manual(values  = c("navy", "white")) +
+#   theme(panel.grid.minor = element_blank(),
+#         legend.position  = "none")
+
+d %>% 
+  ggplot(aes(x = position, y = draw)) +
+  geom_segment(data  = lines_1,
+               aes(x = x, xend = xend,
+                   y = y, yend = yend),
+               size  = 1/3) +
+  geom_segment(data  = lines_2,
+               aes(x = x, xend = xend,
+                   y = y, yend = yend),
+               size  = 1/3) +
+  geom_point(aes(fill = fill),
+             shape = 21, size = 4) +
+  scale_fill_manual(values  = c("navy", "white")) +
+  scale_x_continuous(NULL, limits = c(0, 4), breaks = NULL) +
+  scale_y_continuous(NULL, limits = c(0.75, 3), breaks = NULL) +
+  theme(panel.grid      = element_blank(),
+        legend.position = "none") +
+  coord_polar()
+
+```
+]
+
+---
+class: middle
+# Eliminating the paths inconsistent with the observed sequence
+.pull-left[
+- The first draw turned out to be blue, If you imagine the real data tracing out a path through the garden, it must have passed through the one blue path near the origin. 
+The second draw from the bag produces a white marble , so three of the paths forking out of the first blue marble remain.
+- Finally, the third draw is blue . 
+- Visually we can see that by logically eliminated the other paths it leaves a total of three ways for the sequence to appear, assuming the bag contains [blue,white,white,white].
+]
+.pull-right[
+```{r echo=FALSE}
+lines_1 <-
+  lines_1 %>% 
+  mutate(remain = c(rep(0:1, times = c(1, 3)),
+                    rep(0,   times = 4 * 3)))
+
+lines_2 <-
+  lines_2 %>% 
+  mutate(remain = c(rep(0,   times = 4),
+                    rep(1:0, times = c(1, 3)) %>% 
+                      rep(., times = 3),
+                    rep(0,   times = 12 * 4)))
+
+d <-
+  d %>% 
+  mutate(remain = c(rep(1:0, times = c(1, 3)),
+                    rep(0:1, times = c(1, 3)),
+                    rep(0,   times = 4 * 4),
+                    rep(1:0, times = c(1, 3)) %>% 
+                      rep(., times = 3),
+                    rep(0,   times = 12 * 4))) 
+
+# finally, the plot:
+d %>% 
+  ggplot(aes(x = position, y = draw)) +
+  geom_segment(data  = lines_1,
+               aes(x = x, xend = xend,
+                   y = y, yend = yend,
+                   alpha = remain %>% as.character()),
+               size  = 1/3) +
+  geom_segment(data  = lines_2,
+               aes(x = x, xend = xend,
+                   y = y, yend = yend,
+                   alpha = remain %>% as.character()),
+               size  = 1/3) +
+  geom_point(aes(fill = fill, alpha = remain %>% as.character()),
+             shape = 21, size = 4) +
+  # it's the alpha parameter that makes elements semitransparent
+  scale_alpha_manual(values = c(1/10, 1)) +
+  scale_fill_manual(values  = c("navy", "white")) +
+  scale_x_continuous(NULL, limits = c(0, 4), breaks = NULL) +
+  scale_y_continuous(NULL, limits = c(0.75, 3), breaks = NULL) +
+  theme(panel.grid      = element_blank(),
+        legend.position = "none") +
+  coord_polar()
+```
+]
+---
+class:middle
+# Conjecture summary
+- To summarize, we’ve considered five different conjectures about the contents of the bag, ranging from zero blue marbles to four blue marbles. For each of these conjectures, we’ve counted up how many sequences, paths through the garden of forking data, could potentially produce the observed data,[blue,white,blue]
+
+```{r, conjecture summary, echo=FALSE}
+n_blue <- function(x){
+  rowSums(x == "b")
+}
+
+n_white <- function(x){
+  rowSums(x == "w")
+}
+
+t <-
+  # for the first four columns, `p_` indexes position
+  tibble(p_1 = rep(c("w", "b"), times = c(1, 4)),
+         p_2 = rep(c("w", "b"), times = c(2, 3)),
+         p_3 = rep(c("w", "b"), times = c(3, 2)),
+         p_4 = rep(c("w", "b"), times = c(4, 1))) %>% 
+  mutate(`draw 1: blue`  = n_blue(.),
+         `draw 2: white` = n_white(.),
+         `draw 3: blue`  = n_blue(.)) %>% 
+  mutate(`ways to produce` = `draw 1: blue` * `draw 2: white` * `draw 3: blue`)
+
+t %>% 
+  knitr::kable() %>% kableExtra::kable_classic_2()
+```
+- Notice that the number of ways to produce the data, for each conjecture, can be computed by first counting the number of paths in each “ring” of the garden and then by multiplying these counts together.
+- Note that multiplication is just counting condensed.  This point will come up again when we look at the formal representation of Bayesian inference.
+- We can use these counts to rate the relatively plausibility of each conjecture.
+
+---
+class: middle
+# From counting to probability
+- Luckily, there’s a mathematical way to compress all of this. Specifically, we define the updated plausibility of each possible composition of the bag, after seeing the data, as:
+$$\text{plausibility of [bwww] after seeing [bwb]} \propto \text{ways[bwww] can produce [bwb]} \times \text{prior plausibility[bwww]} $$
+- Probability can be thought of as plausibility standardise and if we helpfully define p=1/4 (the proportion of marbles that are blue) and $D_{new}=[bwb]$:
+.small[
+$$\text{Plausibility of p after }D_{new}=\frac{\text{ways p can produce }D_{new}\times\text{prior probability p}}{\text{sum of products}}$$
+]
+```{r, echo=FALSE}
+t %>% 
+  select(p_1:p_4) %>% 
+  mutate(p                      = seq(from = 0, to = 1, by = .25),
+         `ways to produce data` = c(0, 3, 8, 9, 0)) %>% 
+  mutate(plausibility           = `ways to produce data` / sum(`ways to produce data`))
+```
+
+- In `R` the above formula is easily coded to give these plausibilities.
+.small[
+```{r}
+ways<-c(0,3,8,9,0)
+ways/sum(ways)
+```
+]
+---
+class: middle
+## Bring it back to applied probability theory
+
+- A conjectured proportion of blue marbles, p, is usually called a .saltinline[parameter] value. It’s just a way of indexing possible explanations of the data.
+- The relative number of ways that a value p can produce the data is usually called
+a .saltinline[likelihood]. It is derived by enumerating all the possible data sequences that could have happened and then eliminating those sequences inconsistent with the
+data.
+- The prior plausibility of any specific p is usually called the .saltinline[prior probability.]
+- The new, updated plausibility of any specific p is usually called the .saltinline[posterior
+probability.]
+
+---
+class: middle
+# Fundamental unit of statistical inference
+
+- For both Bayesians and frequentists the fundamental unit of statistical inference are probability densities:
+$$F=\left\{f_u(x);x \in X,\mu \in \Omega \right\};$$
+- where x, the observed data, is a point in the sample space X, while unobserved parameter $\mu$ is a point in the parameter space $\Omega$.
+- A statistician observes x from $f_u(x)$, and infer the value of $\mu$
+---
+class: middle
+# Popular probability families
+
+.blockquote[
+### Normal family
+$$f_u(x)=\frac{1}{\sqrt{2 \pi}} e^{-0.5(x-\mu)^2}$$
+- useful when we want $X \text{ and } \Omega$ being on the entire real line $(-\infty,\infty)$
+]
+.blockquote[
+### Poisson family
+$$f_u(x)=e^{-\mu)}\mu^-x/x!$$
+- useful when $X$ is a nonnegative integer $\left\{0,1,2,...\right\}$ and $\Omega$ is the nonnegative real number line $(0,\infty)$
+]
+
+---
+class: middle
+## Bayesian inference
+- In addition Bayesian inference requires one crucial assumption, the knowledge of a prior density concerning the parameter $g(\mu),\mu \in \Omega$
+- $g(\mu)$ represents prior information concerning the parameter $\mu$, available to the statistician $before$ the observation of x.
+- Exactly what constitutes **prior knowledge** is a crucial and at time contentious question in econometrics.
+
+---
+class: middle
+# Bayes Rule
+
+- Roughly speaking, Bayesian inference is about counting probabilities.
+- We the previous marbles example we seen this.
+- The rule is a simple exercise in conditional probability.
+- In math $g(\mu|x)=g(\mu)f_{\mu}(x)/f(x)$, where f(x) is a marginal density (an integral or a sum of discrete where we count up all the possibilities)
+
+-- 
+
+- In this rule $x$ is fixed at its observed value while $\mu$ varies over $\Omega$. .acidinline[This is the opposite of frequentist calculations]
+- A memorable restatement of this rule is that the posterior odds ratio is the prior odds ratio time the likelihood ratio. 
+- Formally, this is defined for any two points $\mu_1$ and $\mu_2$ on $\Omega$ as
+$$\frac{g(\mu_1|x)}{g(\mu_2|x)}=\frac{g(\mu_1)}{g(\mu_1)}\frac{f_{\mu_1}(x)}{f_{\mu_2}(x)}$$
+
+---
+class:middle 
+## A Bayesian /Frequentist Comparison
+.pull-left[
+![](img/casi_bayesianvdfrequentist.png)
+]
+.pull-right[
+- Bayesians and frequentists start out on the same playing field, a family of probability distributions $f_{\mu}(x)$ 
+- But play the game in orthogonal directions, as indicated schematically in Figure 3.5
+
+- Bayesian inference proceeds vertically, with x fixed, according to the posterior distribution $g(u|x)$
+- Frequentists reason horizontally, with fixed $\mu$ and x varying.
+- There are advantages and disadvantages accrue to both strategies
+]
+---
+class: middle
+## Bayesian Vs Frequentist
+.pull-left[
+- Bayesian inference requires a prior distribution $g(\mu)$ 
+- When past experience provides $g(\mu)$,there is every good reason to employ Bayes’ theorem. 
+- If not, techniques such as those of [Jeffreys](https://en.wikipedia.org/wiki/Jeffreys_prior) still permit the use of Bayes’ rule, but the results lack the full logical force of the theorem
+- The Bayesian’s right to ignore selection bias, for instance, must then be treated with caution.
+]
+.pull-right[
+Frequentism replaces the choice of a prior with the choice of a method, or algorithm, $t(x)$, designed to answer the specific question at hand. 
+- This adds an arbitrary element to the inferential process, and can lead contradictions. 
+- Optimal choice of $t(x)$ reduces arbitrary behavior, but computer-age applications typically move outside the safe waters of classical optimality theory, lending an ad-hoc character to frequentist analyses.
+]
+---
+class: middle
+#Bayesian Vs Frequentist
+- Modern data-analysis problems are often approached via a favored methodology, such as logistic regression or regression tree.
+- This plays into the methodological orientation of frequentism, which is more flexible than Bayes’ rule in dealing with specific algorithms 
+- Though one always hopes for a reasonable Bayesian justification for the method at hand.
+
+---
+class: middle
+#Bayesian Vs Frequentist
+- Having chosen $g(\mu)$ only a single probability distribution $g(\mu|x)$ is in play for Bayesians. 
+- Frequentists, by contrast, must struggle to balance the behavior of $t(x)$ over a family of possible distributions, since $\mu$ in Figure 3.5 is unknown. 
+- The growing popularity of Bayesian applications
+(usually begun with uninformative priors) reflects their simplicity of application and interpretation.
+- The simplicity argument cuts both ways. 
+- The Bayesian essentially bets it all on the choice of his or her prior being correct, or at least not harmful.
+- Frequentism takes a more defensive posture, hoping to do well, or at least not poorly, whatever $\mu$ might be.
+
+---
+class: middle
+#Bayesian Vs Frequentist
+- A Bayesian analysis answers all possible questions at once.
+- Frequentism focuses on the problem at hand, requiring different estimators for different questions. 
+- This is more work, but allows for more intense inspection of particular problems.
+
+- The simplicity of the Bayesian approach is especially appealing in dynamic contents, where data arrives sequentially and updating one’s beliefs is a natural practice.  
+- Financial market dynamics are a case in point.
+- Bayes’ theorem is an excellent tool in general for combining statistical evidence from disparate sources,
+the closest frequentist analog being maximum likelihood estimation.
+
+---
+class: middle
+#Bayesian Vs Frequentist
+
+- In the absence of genuine prior information, a whiff of subjectivity hangs over Bayesian results, even those based on uninformative priors. 
+- Classical frequentism claimed for itself the high ground of scientific objectivity, especially in contentious areas such as drug testing and approval, where skeptics as well as friends hang on the statistical details.
+- Figure 3.5 is soothingly misleading in its schematics: 
+- In FML $\mu$ and $x$ are typically be high-dimensional , sometimes very high-dimensional, straining to the breaking point both the frequentist and the Bayesian paradigms. 
+- Computer-age statistical inference at its most
+successful combines elements of the two philosophies, as for instance in the empirical Bayes methods or the lasso
+
+- .heatinline[There are two potent arrows in the statistician’s philosophical quiver, and faced, say, with 1000 parameters and 1,000,000 data points, there’s no
+need to go hunting armed with just one of them.]
+
+---
+class: middle, center, hide-logo
+background-image: url(img/title_slide.png)
+background-size: cover
+
+# .acid[Thank You]
+
+# .glow[Questions?]
+
+---
+class: middle
+# Extra reading
+
+.salt[
+[Efron, Bradley, and Trevor Hastie. 2016. Computer Age Statistical Inference. Cambridge University Press.](https://encore.qub.ac.uk/iii/encore/record/C__Rb2203007%C2%A0)
+
+[Statistical rethinking : a Bayesian course with examples in R and Stan / Richard McElreath](https://encore.qub.ac.uk/iii/encore/record/C__Rb2089842__Sstatistical%20rethinking__Orightresult__U__X7?lang=eng&suite=def)
+]

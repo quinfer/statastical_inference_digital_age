@@ -73,9 +73,9 @@ class:inverse
 
 - Statistical inference is a broad discipline at the intersection of mathematics, empirical science and philosophy. 
 
-- Computation has been a traditional bottleneck for motivating small sample solutions with solid asymptotic principles.  
+- Computation has been a traditional bottleneck in statistics, motivating small sample solutions with solid asymptotic principles.  
 
-- Traditional econometrics retains much of this framework arguable because of the sparsity of observed data realisation of theory. 
+- Traditional statistics retains much of this framework arguable because of the sparsity of observed data realisation of theory. 
 
 - After the 1950s, as power and accessibility of computing have increased, and statistical theory has developed, statistical inference using machine learning model has become commonplace for applied statisticians.
 
@@ -85,85 +85,35 @@ class:inverse
 class:middle
  ## What is statistical inference?
  
-- Statistical inference is the bedrock of econometrics
-- The main focus of ML is traditionally prediction. 
-- In traditional econometrics, models learn statistical information and uncertainty about the parameters of the *unobservable* data generating process. 
+- Statistical inference is the bedrock of applied statistics.
+
+- The main focus of machine learning models is traditionally prediction. 
+
+- In traditional statistics, models learn statistical information and uncertainty about the parameters of the *unobservable* data generating process. 
 
 - Their power emanates from an *a priori* probability model under strict assumptions with a proven track record. 
 
-- Armed with this theoretical confidence and using the dominant frequentist approach, econometricians can objectively infer uncertainty and variation characteristics about **how well the data sampled maps to the theoretical data generating process**. 
+- Armed with this theoretical confidence and using the dominant frequentist approach, statisticians can objectively infer uncertainty and variation characteristics about 
+
+&gt;how well the data sampled maps to the theoretical data generating process?. 
 
 ---
 class: middle
-# The most important property of an inference model in academia??
+### The most important property of an inference model
 
-- Econometricians coax validate statistical inference using amenable distributional assumptions and model specifications. 
+- SXtatisticians coax validate statistical inference using amenable distributional assumptions and model specifications. 
 
-- The three most important properties in most traditional econometrics models are linearity, additivity and monotonicity. 
+- The three most important properties in most traditional statistics models are .content-box-yellow[linearity, additivity and monotonicity]. 
 
-- The most important assumption, which is routine overlooking in many textbooks, is **validity**. Andrew Gelman summarises this property as: 
+- The most important assumption, which is routine overlooking in many textbooks, is **validity**. 
+
+- Andrew Gelman summarises this property as: 
 
 &gt; The data you are analysing should map to the research question you are trying to answer.  This assumption sounds obvious but is often overlooked or ignored because it can be inconvenient.  Optimally, this means that the outcome measure should accurately reflect the phenomenon of interest, the model should include all relevant predictors, and the model should generalise to the cases to which it will be applied. - [@Gelman2020] 
 
----
-class: middle
-## Publish that significance!!
+- These amenable formulations provide a convenient root to statistical significance using p-values.
 
-- These amenable formulations provide a convenient root to statistical significance using p-values [@Lommers2021].
-
-- The inherent philosophy of traditional econometric models is incompatible with out-of-sample inference and prediction [@De_Prado2019]; 
-
-- These are two task which are at the core of the modern finance industry.
-
----
-class: middle
-## Machine learning models
-
-- Machine learning models focus on outcome prediction, where the data generated process is generally undefined, with the goal of algorithmically optimising models to fit the underlying data generating process as well as possible [@Lommers2021]. 
-
-- [@Efron2016] summaries this well in their definition of computer age statistical inference:
-
-&gt;Very broadly speaking, algorithms are what statisticians do, while inference says why they do them. However, the efflorescence of ambitious algorithms has forced an evolution (though not a revolution) in inference, the theories by which statisticians choose among competing methods.
-
----
-class: middle
-## Challenge or opportunity to good science ?
-
-- Thus the challenge for modern computationally literate researchers is to understand the inferential benefits of machine learning through the lens of econometrics.
-
-- For inference to be convincing, more work must be done on statistical consistency of machine learning models. 
-
-- For instance, in the area of explainable AI (XAI), great strides have been made on producing statistical consistent and cognitive convincing explanations of the importance of predictors in the ML model [@Barredo_Arrieta2020].  
-
-- Second-generation p-values can be included in a penalised regression model to yield tangible advantages for balancing support recovery, parameter estimation, and prediction tasks [@Blume2019; @Zuo2021]. 
-
----
-class:middle
-# What is Machine Learning?
-
-### ML covers various classes of algorithms for pattern recognition and decision-making.
-
-|Paradigm|Goal|Examples|
-|:--:|:--:|:--:|
-|Supervised Learning|Using labelled data the goal is to learn the relationship between `\(X\)` and `\(Y\)`|Random Forests, Extreme Boosted Trees, Recurrent Neural Networks|
-|Unsupervised Learning|Given a set of unlabelled data the goal is to retrieve exploratory information about, groupings or hidden patterns|Hierarchical clustering, `\(k\)`-mean clustering,hidden Markov models, Gaussian mixtures|
-|Reinforcement learning| An algorithmic approach to Bellman optimality of a Markov Decision Process| A form of dynamic programming used for decisions leading to optimal trade execution, portfolio allocation, and liquidation over a given horizon|
-
----
-class:middle
-# Types of supervised ML models
-
-### Discriminative
-- Learnings the decision boundary between the classes
-- Implicitly learns the output conditional on the input
-
-.context-box-blue[Examples: Decisions tree, Neural network]
-
-### Generative
-- Explicitly learns the joint distribution of the input and the output
-- Can use Bayes's rule to also extract the conditional distribution
-
-.context-box-blue[Example: Restricted Boltzmann machine (RBM), Bayesian Neural Networks]
+- .heatinline[The inherent philosophy of traditional statistic models is incompatible with out-of-sample inference and prediction.]
 
 ---
 class: middle
@@ -188,6 +138,57 @@ class: middle
 class:inverse
 # A deep learning explainer
 &lt;iframe src="https://player.vimeo.com/video/504543351" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+---
+class: middle
+## Machine learning models
+
+- Machine learning models focus on outcome prediction, where the data generated process is generally undefined, with the goal of algorithmically optimising models to fit the underlying data generating process as well as possible 
+
+- Efron et al. (2016) summaries this well in their definition of computer age statistical inference:
+
+&gt;Very broadly speaking, algorithms are what statisticians do, while inference says why they do them. However, the efflorescence of ambitious algorithms has forced an evolution (though not a revolution) in inference, the theories by which statisticians choose among competing methods.
+
+---
+class:middle
+# Machine learning models
+
+### ML covers various classes of algorithms for pattern recognition and decision-making.
+
+|Paradigm|Goal|Examples|
+|:--:|:--:|:--:|
+|Supervised Learning|Using labelled data the goal is to learn the relationship between `\(X\)` and `\(Y\)`|Random Forests, Extreme Boosted Trees, Recurrent Neural Networks|
+|Unsupervised Learning|Given a set of unlabelled data the goal is to retrieve exploratory information about, groupings or hidden patterns|Hierarchical clustering, `\(k\)`-mean clustering,hidden Markov models, Gaussian mixtures|
+|Reinforcement learning| An algorithmic approach to Bellman optimality of a Markov Decision Process| A form of dynamic programming used for decisions leading to optimal trade execution, portfolio allocation, and liquidation over a given horizon|
+
+---
+class:middle
+# Types of supervised ML models
+
+### Discriminative
+- Learnings the decision boundary between the classes
+- Implicitly learns the output conditional on the input
+
+.content-box-blue[Examples: Decisions tree, Neural network]
+
+### Generative
+- Explicitly learns the joint distribution of the input and the output
+- Can use Bayes's rule to also extract the conditional distribution
+
+.content-box-blue[Example: Restricted Boltzmann machine (RBM), Bayesian Neural Networks]
+
+
+---
+class: middle
+## Challenge or opportunity to good science ?
+
+- Thus the challenge for modern computationally literate researchers is to understand the inferential benefits of machine learning through the lens of statistics.
+
+- For inference to be convincing, more work must be done on statistical consistency of machine learning models. 
+
+- For instance, in the area of explainable AI (XAI), great strides have been made on producing statistical consistent and cognitive convincing explanations of the importance of predictors in the ML model (Barredo_Arrieta ety al., 2020).  
+
+- Second-generation p-values can be included in a penalised regression model to yield tangible advantages for balancing support recovery, parameter estimation, and prediction tasks (Blume et al.,2019; Zuo et al.,2021). 
 
 
 ---
@@ -311,7 +312,7 @@ class: middle
 ]
 .pull-right[
 &lt;iframe width="600" height="500"
-   src="img/lowess_ani.gif" &lt;/iframe&gt;
+   src="lowess_ani.gif" &lt;/iframe&gt;
 ]
 
 ---
@@ -359,8 +360,11 @@ class:middle
 ]
 .pull-right[
 - We obtain t= 5.07 which would classically be considered very strong evidence that the apparent difference is genuine; in standard terminology, “with two-sided significance level 0.0000003.”
+
 - A small significance level (or “p-value”) is a statement of statistical surprise: something very unusual has happened if in fact there is no difference in returns of the value factor in up and down markets
+
 - We are less surprised by t=5.07 if this comparison of mean returns is just one candidate out of thousands that might have produced “interesting” results.
+
 - For example if I take a different set sample period and run the test again, or I split the sample into 5 sub-samples and run the test again.
 ]
 ---
@@ -368,13 +372,15 @@ class: middle
 # Traditional hypothesis testing and false discovery theory
 .fatinline[
 - A primary goal of empirical research is to identify the variables involved in a phenomenon
+
 - The identification of these variables is a prerequisite to the formulation of a theory
-- In classical statistics (e.g., Econometric), the significance of variables is established through p values
--  p values suffer from multiple flaws, which have led to the acknowledgment that [most discoveries in finance are false](http://dx.doi.org/10.1111/jofi.12530)
+
+- In classical statistics (e.g., statistic), the significance of variables is established through p values
+
+-  p values suffer from multiple flaws, which have led to the acknowledgement that [most discoveries in finance are false](http://dx.doi.org/10.1111/jofi.12530)
 ]
 
 .blockquote[
-#### FML inference 
 - False discovery rate theory is an impressive advance in statistical inference, incorporating Bayesian ,frequentist, and empirical Bayesian elements.
 - It was a *necessary* advance in a scientific world where computer-based technology routinely presents thousands of comparisons to be evaluated at once.
 ]
@@ -388,7 +394,6 @@ class: middle
 .content-box-red[
 ### Phase one
 * Important new algorithms often arise outside the world of professional statisticians: neural nets, support vector machines, and boosting are three famous examples. 
-* None of this is surprising.
 * New sources of data, satellite imagery for example, video content of CEOs, inspire novel methodology from the observing scientists.
 * The early literature tends toward the enthusiastic, with claims of enormous applicability and power.
 ]
@@ -398,6 +403,7 @@ class: middle
 ### Phase two
 - In the second phase, statisticians try to locate the new metholodogy within the framework of statistical theory. 
 - In other words, they carry out the statistical inference part of the cycle, placing the new methodology within the known Bayesian and frequentist limits of performance.
+- **Applied statistics is now developing this phase**
 ]
 ]
 .blockquote[This is a healthy chain of events, good both for the hybrid vigor of the statistics profession and for the further progress of algorithmic technology.]
@@ -407,6 +413,15 @@ class: middle
 # Simulated example of false discovery problem
 
 
+```r
+set.seed(1235)
+res&lt;-tibble(testno=1:20, pvalue=1)
+for (i in 1:20) {
+  Up=rnorm(1000)
+  NoUp=rnorm(1000)
+  res[i,2]&lt;-t.test(Up,NoUp)['p.value']
+}
+```
 - This code fakes the return up versus down question earlier, where the *ground truth* is that there is no relationship.
 - This implies that our significant results, when using a t-test, must be fake
 - We repeat the test 20 times using a simple for loop.

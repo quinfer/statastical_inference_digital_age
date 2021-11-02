@@ -1,6 +1,6 @@
 ---
 title: "Statistical inference in the digital age"
-subtitle: "PhD Seminar Series Part 1"
+subtitle: "PhD Seminar Series"
 author: "Barry Quinn PhD CStat"
 date: "`r Sys.Date()`"
 output:
@@ -61,14 +61,10 @@ class:inverse, middle
 
 ---
 class:inverse
-# What is statistical inference in the digital age?
+# What is statistical inference?
 
 .large[
 - **It is not causal inference**
-
-- Statistical inference is the art form.
-
-- The skilled artist will use data, statistical theories and algorithms to form judgments about the true nature of the world.
 
 - Statistical inference is a broad discipline at the intersection of mathematics, empirical science and philosophy. 
 
@@ -78,12 +74,29 @@ class:inverse
 
 - After the 1950s, as power and accessibility of computing have increased, and statistical theory has developed, statistical inference using machine learning model has become commonplace for applied statisticians.
 
+- Adoption in research for business and economics academia is slower.
 ]
+---
+class:middle
+ ## What is statistical inference?
+ 
+- Statistical inference is the bedrock of applied statistics.
+
+- The main focus of machine learning models is traditionally prediction. 
+
+- In traditional statistics, models learn statistical information and uncertainty about the parameters of the *unobservable* data generating process. 
+
+- Their power emanates from an *a priori* probability model under strict assumptions with a proven track record. 
+
+- Armed with this theoretical confidence and using the dominant frequentist approach, statisticians can objectively infer uncertainty and variation characteristics about 
+
+>how well the data sampled maps to the theoretical data generating process?. 
+
 ---
 class: middle
 ### The most important property of an inference model
 
-- Statisticians coax validate statistical inference using amenable distributional assumptions and model specifications. 
+- SXtatisticians coax validate statistical inference using amenable distributional assumptions and model specifications. 
 
 - The three most important properties in most traditional statistics models are .content-box-yellow[linearity, additivity and monotonicity]. 
 
@@ -93,12 +106,37 @@ class: middle
 
 > The data you are analysing should map to the research question you are trying to answer.  This assumption sounds obvious but is often overlooked or ignored because it can be inconvenient.  Optimally, this means that the outcome measure should accurately reflect the phenomenon of interest, the model should include all relevant predictors, and the model should generalise to the cases to which it will be applied. - [@Gelman2020] 
 
+- These amenable formulations provide a convenient root to statistical significance using p-values.
+
+- .heatinline[The inherent philosophy of traditional statistic models is incompatible with out-of-sample inference and prediction.]
+
 ---
+class: middle
+# Artificial intellience
+ - We are now in the era of narrow AI.
+ - AI experts' predictions vary as to when we can see *artificial general intelligence* (AGI)
+--
+
+## Machine Learning(ML)
+ - This is generally thought of as a branch of AI
+ - Traditional machine learning algorithms are designed for cross-sectional data sets.
+ - Many financial problems require explicit modeling of complex time series properties.
+
+--
+ 
+### Deep learning
+ - Is a branch of ML which has been the media darling of AI industry expansion
+ - At its core it is using neural networks; algorithms inspired by the structure of the human brain.
+ - Statisticians are less impressed, and prefer to categorise these models as semi-parametric to non-parametric.
+
+---
+class:inverse
+# A deep learning explainer
+<iframe src="https://player.vimeo.com/video/504543351" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+
 ---
 class: middle
 ## Machine learning models
-
-- Traditional statistical inference has a new challenger; the machine learning model!
 
 - Machine learning models focus on outcome prediction, where the data generated process is generally undefined, with the goal of algorithmically optimising models to fit the underlying data generating process as well as possible 
 
@@ -107,8 +145,37 @@ class: middle
 >Very broadly speaking, algorithms are what statisticians do, while inference says why they do them. However, the efflorescence of ambitious algorithms has forced an evolution (though not a revolution) in inference, the theories by which statisticians choose among competing methods.
 
 ---
+class:middle
+# Machine learning models
+
+### ML covers various classes of algorithms for pattern recognition and decision-making.
+
+|Paradigm|Goal|Examples|
+|:--:|:--:|:--:|
+|Supervised Learning|Using labelled data the goal is to learn the relationship between $X$ and $Y$|Random Forests, Extreme Boosted Trees, Recurrent Neural Networks|
+|Unsupervised Learning|Given a set of unlabelled data the goal is to retrieve exploratory information about, groupings or hidden patterns|Hierarchical clustering, $k$-mean clustering,hidden Markov models, Gaussian mixtures|
+|Reinforcement learning| An algorithmic approach to Bellman optimality of a Markov Decision Process| A form of dynamic programming used for decisions leading to optimal trade execution, portfolio allocation, and liquidation over a given horizon|
+
+---
+class:middle
+# Types of supervised ML models
+
+### Discriminative
+- Learnings the decision boundary between the classes
+- Implicitly learns the output conditional on the input
+
+.content-box-blue[Examples: Decisions tree, Neural network]
+
+### Generative
+- Explicitly learns the joint distribution of the input and the output
+- Can use Bayes's rule to also extract the conditional distribution
+
+.content-box-blue[Example: Restricted Boltzmann machine (RBM), Bayesian Neural Networks]
+
+
+---
 class: middle
-## Challenge or opportunity for good scientific discovery ?
+## Challenge or opportunity to good science ?
 
 - Thus the challenge for modern computationally literate researchers is to understand the inferential benefits of machine learning through the lens of statistics.
 
@@ -248,7 +315,6 @@ class: middle
 # Bootstrap inferential engine
 
 .pull-left[
-- A bootstrap is a form of random re-sampling which produces a distribution of the statistics with the use of a thoeretical formula. 
 - Unlike the least squares algo, there is no formula to infer the accuracy of the lowess curve.
 - Instead, a computer-intensive inference engine, the `bootstrap`, was used to calculate the error bars. 
 - The bootstrap data set is produced by resampling the 100 pairs of $(x_i,y_i)$ from the original data with replacement.
